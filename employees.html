@@ -1,1 +1,497 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employee Management</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: tahoma, sans-serif;
+    background: #ffffff;
+}
+
+/* PAGE CONTAINER */
+.main-content {
+    margin-left: 230px;      /* sidebar size */
+    padding: 40px;
+    width: calc(100% - 230px);
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: flex-start;
+}
+
+/* CENTERED CONTAINER */
+.container {
+    width: 900px; 
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.08);
+    max-height: 85vh;
+    overflow-y: auto;        /* inside scroll only */
+    margin: 0 auto;          /* center fix */
+}
+
+
+/* HEADING */
+.container h2 {
+    display: inline-block;
+    background: linear-gradient(to right, #07AFC0, #1aa853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* ROWS */
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.inputGroup {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup label {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* UNDERLINE INPUT */
+.inputGroup input, .inputGroup select {
+    border: none;
+    background: transparent;
+    border-bottom: 3px solid #9de79d;
+    padding: 10px 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Add Employee Button */
+#addEmpBtn {
+    padding: 10px 25px;
+    
+     background: linear-gradient(to right, #07AFC0, #1aa853);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#addEmpBtn:hover { background: linear-gradient(to right, #1aa853, #07AFC0); }
+
+/* Employee Stored Card */
+.empCard {
+    background: #f5f4f4;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid #ffffff;
+    border-left: 6px solid #34c759;
+}
+
+.twoCol {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.left, .right {
+    width: 48%;
+}
+
+p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* Buttons */
+.buttons button {
+    padding: 7px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.editBtn { background: #00bfff; }
+.deleteBtn { background: #ff4d4d; }
+
+/* Password Eye Icon */
+.eye {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+
+
+    .sidebar {
+    width: 230px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(#34caca, #1aa853);  /* same as your screenshot */
+    padding-top: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+/* Logo */
+
+
+/* Menu buttons */
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.sidebar a:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Logout button */
+.sidebar button {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    background: white;
+    color: #26bfa3;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #fff;
+  background-image: url(bgdot.jpeg);
+justify-content: space-between;
+}
+
+/* PAGE CONTAINER */
+ 
+
+.wave1 {
+  bottom: 15%;
+  animation: moveWave 50s linear infinite;
+}
+
+
+.wave-container {
+    position: fixed;
+    top: 0;
+    left: 230px;              
+    width: calc(100% - 230px);
+    height: 100vh;
+    z-index: -1;             
+    overflow: hidden;
+}
+
+
+/* ANIMATION */
+ 
+@keyframes moveWave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+#flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#flash.active {
+  opacity: 0.9;
+}
+
+/* WAVE BACKGROUND */
+.ptimg{
+    margin-left: 30px;
+    width: 70%;
+    
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    
+}
+.sidebar img {
+        width: 150px;
+        height: auto;
+        padding: 12px 20px;
+        margin-left: 5px;
+        align-items: center;
+        
+}
+</style>
+<body>
+    <div class="wave-container">
+    <img src="wave.png" class="wave wave1"><div id="flash"></div>
+  </div>
+    <div class="sidebar">
+    <div class="ptimg"><img src="PTlogo.png" alt=""></div>
+    <br>
+
+    <a href="home.html">Home</a>
+    <a href="employees.html">Employees</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="stock.html">Stock</a>
+    <a href="cust.html">Customers</a>
+    <a href="accounts.html">Accounts</a>
+    <a href="expenses.html">Expenses</a>
+
+    <br><br><br><br>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<div class="main-content">
+<div class="container">
+
+    <h2>Employee Registration </h2>
+
+    <!-- Row 1 -->
+    <div class="row">
+        <div class="inputGroup">
+            <label>Employee Name</label>
+            <input type="text" id="empName">
+        </div>
+
+        <div class="inputGroup">
+            <label>Mobile Number</label>
+            <input type="text" id="empMobile">
+        </div>
+        <div class="inputGroup">
+            <label>Role</label>
+            <select id="empRole">
+                <option value="">Select Role</option>
+                <option>Founder</option>
+                <option>Graphic Designer</option>
+                <option>Machine Operator</option>
+                <option>Admin</option>
+                <option>Fresher</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="row">
+
+        <div class="inputGroup">
+            <label>Username</label>
+            <input type="text" id="empUser">
+        </div>
+
+        <div class="inputGroup">
+            <label>Password</label>
+            <input type="password" id="empPass">
+        </div>
+        <div class="inputGroup" style="width: 32%;">
+            <label>Confirm Password</label>
+            <input type="password" id="empCPass">
+        </div>
+    </div>
+
+    <!-- Row 3 -->
+    
+    <button id="addEmpBtn">Add Employee</button>
+   
+    <div id="empList"></div>
+
+</div>
+</div>
+<script>
+
+  
+let employees = JSON.parse(localStorage.getItem("employees")) || [];
+displayEmployees();
+const emp = {
+    name: empName.value,
+    mobile: empMobile.value,
+    role: empRole.value,
+    user: empUser.value,
+    pass: empPass.value
+};
+
+document.getElementById("addEmpBtn").addEventListener("click", () => {
+
+    if (!empName.value || !empMobile.value || !empRole.value ||
+        !empUser.value || !empPass.value || !empCPass.value) {
+        alert("Fill all fields");
+        return;
+    }
+
+    if (empPass.value !== empCPass.value) {
+        alert("Password mismatch!");
+        return;
+    }
+
+    const emp = {
+        name: empName.value,
+        mobile: empMobile.value,
+        role: empRole.value,
+        user: empUser.value,
+        pass: empPass.value
+    };
+
+    employees.unshift(emp);
+    save();
+});
+
+function displayEmployees() {
+    empList.innerHTML = "";
+
+    employees.forEach((e, i) => {
+        const card = document.createElement("div");
+        card.className = "empCard";
+
+        card.innerHTML = `
+            <p><b>Name:</b> ${e.name}</p>
+            <p><b>Mobile:</b> ${e.mobile}</p>
+            <p><b>Role:</b> ${e.role}</p>
+            <p><b>Username:</b> ${e.user}</p>
+
+            <p><b>Password:</b> <span id="pwd-${i}">******</span>
+                <span class="eye" onclick="togglePass(${i})">👁️</span>
+            </p>
+            
+            <div class="buttons">
+                <button class="editBtn" onclick="editEmp(${i})">Edit</button>
+                <button class="deleteBtn" onclick="deleteEmp(${i})">Delete</button>
+            </div>
+        `;
+
+        empList.appendChild(card);
+    });
+}
+
+/* Show / Hide Password */
+function togglePass(i) {
+    let pwd = document.getElementById("pwd-" + i);
+
+    if (pwd.innerText === "******") {
+        pwd.innerText = employees[i].pass;
+    } else {
+        pwd.innerText = "******";
+    }
+}
+
+/* Delete */
+function deleteEmp(i) {
+    if (confirm("Are you sure?")) {
+        employees.splice(i, 1);
+        save();
+    }
+}
+
+/* Edit */
+function editEmp(i) {
+    const e = employees[i];
+
+    empName.value = e.name;
+    empMobile.value = e.mobile;
+    empRole.value = e.role;
+    empUser.value = e.user;
+    empPass.value = e.pass;
+    empCPass.value = e.pass;
+
+    deleteEmp(i);
+}
+
+function save() {
+    localStorage.setItem("employees", JSON.stringify(employees));
+    displayEmployees();
+}
+function logout() {
+
+  
+  sessionStorage.clear();
+
+  window.location.href = "login.html";
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+    // User not logged → redirect
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Apply restrictions for normal employees
+    if (user.role !== "Founder") {
+
+        let hidePages = [
+            
+            "employees.html"   // 🔥 employee registration hidden
+        ];
+
+        hidePages.forEach(page => {
+            let link = document.querySelector(`a[href='${page}']`);
+            if (link) link.style.display = "none";
+        });
+    }
+
+});
+
+
+function clearAllInputs() {
+    document.querySelectorAll("input, textarea, select").forEach(el => {
+        if (el.type !== "button" && el.type !== "submit") {
+            el.value = "";
+        }
+    });
+}
+document.getElementById("addEmpBtn").addEventListener("click", () => {
+
+
+    clearAllInputs(); 
+});
+
+</script>
+
+</body>
+</html>
