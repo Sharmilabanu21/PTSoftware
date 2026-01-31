@@ -1,1 +1,249 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <style>
+    
+
+body {
+  
+        margin: 0;
+        font-family: 'Times New Roman', Times, serif;
+        background: url('bgimg.jpeg');
+        background-size: auto;
+        background-position: center;
+        height: 100vh;
+       margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background: url('bgimg.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;               /* center horizontally & vertically */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    
+    overflow: hidden;   /* 🔥 THIS stops scrolling */
+     /* Full screen height */
+
+
+}
+
+
+
+/* LOGIN PAGE */
+.login-card {
+    width: 350px;
+    height: 450px;
+    background: white;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding: 40px;
+    border-radius: 12px;
+  
+   
+}
+.login-card h1{
+    background: linear-gradient(to right, #0699ee, #1cf31c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    font-family: tahoma ,sans-serif;
+    font-weight: normal;
+    text-align:left;
+}
+ .login-card h2{
+    background: linear-gradient(to right, #0699ee, #1cf31c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    font-family: tahoma,sans-serif;
+    text-align:left;
+}
+
+.login-card img{
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-bottom: 2px solid #b3d8d1; }
+
+
+
+.login-card button{
+    
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: bold;
+    background: linear-gradient(to right,  #07a2d1, #77cf12);
+    cursor: pointer;
+    width: 200px;   
+    height: 35px;  
+    font-size: 16px;
+    padding: 6px 14px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+#loginBtn:hover{
+  background: linear-gradient(to right,  #77cf12, #07a2d1);
+}
+.error {
+    color: red;
+    display: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #fff;
+  background-image: url(bgdot.jpeg);
+justify-content: space-between;
+width: auto;
+}
+
+/* PAGE CONTAINER */
+ .page {
+  position: relative; /* 🔴 VERY IMPORTANT */
+   width: 100%;
+  height: 100vh;
+  overflow:hidden;
+}
+
+/* WAVE BACKGROUND */
+ .wave1 {
+  bottom: 15%;
+  animation: moveWave 50s linear infinite;
+}
+
+
+.wave-container {
+    position: fixed;
+    top: 0;
+               
+    
+    height: 100vh;
+                
+    overflow: hidden;
+}
+
+@keyframes moveWave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+#flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#flash.active {
+  opacity: 0.9;
+}
+
+.page.active {
+    
+     position: absolute;
+    top: 20%;
+    left: 40%;
+    transform: none;
+    
+    
+}
+
+    </style>
+</head>
+
+<body>
+<div class="wave-container">
+    <img src="wave.png" class="wave wave1"><div id="flash"></div>
+  </div>
+    
+    
+    <div id="loginPage" class="page active">
+        <div class="login-card">
+            <img src="PTlogo.png" alt=""><br><br>
+            <h1>Hello,</h1>
+            <h2>Welcome!</h2>
+            <br>
+
+            <input type="text" id="loginUser" placeholder="Username">
+            <input type="password" id="loginPass" placeholder="Password">
+
+            <p id="loginError" class="error" >Invalid user or password</p>
+
+            <button id="loginBtn" onclick="checkLogin()">Login</button>
+
+        </div>
+    </div>
+    
+
+    <script>
+  
+function checkLogin() {
+    let u = document.getElementById("loginUser").value;
+    let p = document.getElementById("loginPass").value;
+
+    let employees = JSON.parse(localStorage.getItem("employees")) || [];
+
+    // 🔥 DEFAULT LOGIN (FIRST TIME)
+    if (u === "admin" && p === "1234") {
+
+        let master = {
+            name: "Admin",
+            user: "admin",
+            pass: "1234",
+            role: "Founder"
+        };
+
+        sessionStorage.setItem("loggedUser", JSON.stringify(master));
+        window.location.href = "home.html";
+        return;
+    }
+
+    // 🔥 EMPLOYEE LOGIN
+    let userFound = employees.find(emp => emp.user === u && emp.pass === p);
+
+    if (userFound) {
+        sessionStorage.setItem("loggedUser", JSON.stringify(userFound));
+        window.location.href = "home.html"; 
+    } 
+    else {
+        document.getElementById("loginError").style.display = "block";
+    }
+  }
+    </script>
+
+</body>
+
+</html>
