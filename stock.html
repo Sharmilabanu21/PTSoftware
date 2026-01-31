@@ -1,1 +1,625 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Stock Management</title>
+
+<style>
+body{
+ 
+  margin: 0;
+    font-family: tahoma, sans-serif;
+    background: url('bgimg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+
+
+}
+.container {
+  background: white;
+    padding: 25px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+h2{
+    display: inline-block;
+    background: linear-gradient(to right, #07AFC0, #1aa853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom:25px;
+    font-size: 28px ;
+}
+
+/* filters */
+.filters{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  margin-bottom:25px;
+}
+select,input{
+  padding:10px;
+  border:none;
+  border-bottom:2px solid #2bc4ad;
+  outline:none;
+}
+
+/* save button */
+.save-btn{
+  margin-top:20px;
+  padding:10px 25px;
+  background: linear-gradient(to right, #07AFC0, #1aa853);
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+.save-btn:hover{
+  background: linear-gradient(to right,#1aa853, #07AFC0);
+}
+
+/* list */
+.item{
+  background:#f7f7f7;
+  padding:18px 22px;
+  border-radius:8px;
+  margin-bottom:15px;
+  display:grid;
+  grid-template-columns:3fr 1fr 2fr;
+  align-items:center;
+}
+
+.status.low{ color:red; font-weight:bold; }
+.status.ok{ color:green; font-weight:bold; }
+
+.buttons{
+  display:flex;
+  align-items:center;
+}
+.buttons button{
+  margin-left:8px;
+  padding:6px 16px;
+  border:none;
+  border-radius:5px;
+  color:#fff;
+  cursor:pointer;
+}
+.delete{background:#ec0202}
+.follow{background:#11a9cf}
+.donebtn{background:#7eca03}
+
+.tick{
+  margin-left:12px;
+  font-size:20px;
+  color:green;
+  font-weight:bold;
+}
+  .sidebar {
+    width: 230px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(#34caca, #1aa853);  /* same as your screenshot */
+    padding-top: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+/* Logo */
+
+
+/* Menu buttons */
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.sidebar a:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Logout button */
+.sidebar button {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    background: white;
+    color: #26bfa3;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+
+.main-content {
+    margin-left: 230px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 25px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #fff;
+  background-image: url(bgdot.jpeg);
+justify-content: space-between;
+}
+
+/* PAGE CONTAINER */
+ 
+
+.wave1 {
+  bottom: 15%;
+  animation: moveWave 50s linear infinite;
+}
+
+
+.wave-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+
+/* ANIMATION */
+ 
+@keyframes moveWave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+#flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#flash.active {
+  opacity: 0.9;
+}
+#available,
+#required{
+  width: 100px;     /* size chinnadha */
+  padding: 6px;
+  font-size: 14px;
+}
+
+/* WAVE BACKGROUND */
+.ptimg{
+    margin-left: 30px;
+    width: 70%;
+    
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    
+}
+.sidebar img {
+        width: 150px;
+        height: auto;
+        padding: 12px 20px;
+        margin-left: 5px;
+        align-items: center;
+        
+}
+.followedUnder {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+  display: inline-block;
+}
+.item small-box {
+  width: 80px;
+}
+.item span.qty {
+  display: inline-block;
+  min-width: 70px;
+  padding: 3px 6px;
+  background: #eaeaea;
+  border-radius: 5px;
+  font-size: 13px;
+}
+.qty-line {
+  font-size: 13px;   /* 👈 size குறைஞ்சது */
+  color: #444;
+}
+
+</style>
+<body>
+    <div class="wave-container">
+    <img src="wave.png" class="wave wave1"><div id="flash"></div>
+  </div>
+    <div class="sidebar">
+    <div class="ptimg"><img src="PTlogo.png" alt=""></div>
+    <br>
+
+    <a href="home.html">Home</a>
+    <a href="employees.html">Employees</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="stock.html">Stock</a>
+    <a href="cust.html">Customers</a>
+    <a href="accounts.html">Accounts</a>
+    <a href="expenses.html">Expenses</a>
+
+    <br><br><br><br>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+
+
+<div class="main-content">
+<div class="container">
+
+<h2>Stock Management</h2>
+
+<!-- FILTER DROPDOWNS -->
+<div class="filters">
+  <select onchange="setItemName(this)">
+    <option value="">A4 Size</option>
+    <option>80 GSM Paper</option>
+    <option>80 GSM Bond paper</option>
+    <option>100 GSM Paper</option>
+    <option>100 GSM Bond Paper</option>
+    <option>Colour Paper Pink</option>
+    <option>Colour Paper Yellow</option>
+    <option>Colour Paper Green</option>
+    <option>Colour Paper Blue</option>
+    <option>Photo Sheet</option>
+    <option>OHP Sheet</option>
+    <option>Tracing Sheet</option>
+    <option>Tracing Film</option>
+    <option>Loan Card Common</option>
+    <option>Loan Card Hindu</option>
+    <option>80 GSM Paper(Legal)</option>
+    <option>80 GSM Ledger Paper(Legal)</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">A3 Size</option>
+    <option>80 GSM Paper</option>
+    <option>80 GSM Bond paper</option>
+    <option>100 GSM Paper</option>
+    <option>100 GSM Bond Paper</option>
+    <option>Photo Sheet</option>
+    <option>OHP Sheet</option>
+    <option>Tracing Sheet</option>
+    <option>Tracing Film</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">12" x 18" (inches)</option>
+    <option>Semi Glossy Sticker</option>
+    <option>130 GSM Art Paper</option>
+    <option>170 GSM Art Paper</option>
+    <option>250 GSM Art Board</option>
+    <option>300 GSM Art Board</option>
+    <option>350 GSM Art Board</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">13" x 19" (inches)</option>
+    <option>Semi Glossy Sticker</option>
+    <option>Heavy Glossy ( Brand: Bright Star )</option>
+    <option>Mirror Cot Sticker</option>
+    <option>PVC White Sticker</option>
+    <option>Clear Sticker</option>
+    <option>Silver Sticker</option>
+    <option>Gold Sticker</option>
+    <option>130 GSM Art Paper</option>
+    <option>170 GSM Art Paper</option>
+    <option>250 GSM Art Board</option>
+    <option>300 GSM Art Board</option>
+    <option>350 GSM Art Board</option>
+    <option>Syndetic Tin 125 Micron</option>
+    <option>Syndetic Tik 250 Micron</option>
+    <option>Needle Point</option>
+    <option>Criss Cross</option>
+    <option>Lenin White</option>
+    <option>Lenin Puff</option>
+    <option>Metallic Silver</option>
+    <option>Metallic Gold</option>
+    <option>Metallic Gold Perfume 5018</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">Thermal Lamination</option>
+    <option>Glossy Roll</option>
+    <option>Matt Roll</option>
+    <option>Velvet Roll</option>
+    <option>Gold Foil Roll</option>
+    <option>Silver Foil Roll</option>
+    <option>UV Roll</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">Pouch Lamination</option>
+    <option>ID Card ( 350 Micron )</option>
+    <option>A6 Size ( 125 Micron )</option>
+    <option>A6 Size ( 175 Micron )</option>
+    <option>A5 Size ( 125 Micron )</option>
+    <option>A5 Size ( 175 Micron )</option>
+    <option>A4 Size ( 125 Micron )</option>
+    <option>A4 Size ( 175 Micron )</option>
+    <option>A3 Size ( 125 Micron )</option>
+    <option>A3 Size ( 175 Micron )</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">Tools / Toners</option>
+    <option>HP Toner (B&W)</option>
+    <option>Canon Toner (B&W)</option>
+    <option>Xerox Toner</option>
+    <option>Konica Minolta Toner</option>
+    <option>PLT Blade</option>
+    <option>PLT Holder</option>
+    <option>PLT Strips</option>
+    <option>Spiral Sheet</option>
+    <option>Spiral Ring ( Small )</option>
+    <option>Spiral Ring ( Medium )</option>
+    <option>Spiral Ring ( Large )</option>
+    <option>Wiro Ring ( 4.8 )</option>
+    <option>Wiro Ring ( 6.4 )</option>
+    <option>Wiro Ring ( 7.9 )</option>
+    <option>Wiro Ring ( 9.5 )</option>
+    <option>Wiro Ring ( 11.1 )</option>
+    <option>Wiro Ring ( 12.7 )</option>
+    <option>Wiro Ring ( 14.3 )</option>
+    <option>Wiro Ring ( 16 )</option>
+    <option>Wiro Ring ( 19 )</option>
+    <option>Wiro Ring ( 22.2 )</option>
+    <option>Wiro Ring ( 25.4 )</option>
+    <option>Wiro Ring ( 28.5 )</option>
+    <option>Wiro Ring ( 31.8 )</option>
+    <option>Stapler 24/6</option>
+    <option>Stapler 26/6</option>
+    <option>Stapler 23/6</option>
+    <option>Stapler 23/8</option>
+    <option>Stapler 23/10</option>
+    <option>Stapler 23/13</option>
+    <option>Stapler 23/15</option>
+    <option>Stapler 23/17</option>
+    <option>Stapler 23/20</option>
+    <option>Stapler 23/24</option>
+    <option>Corner Cut Die</option>
+    <option>Corner Cut Bed</option>
+    <option>Hole Punch Tool</option>
+    <option>Eyelet Sliver</option>
+    <option>Eyelet Gold</option>
+    <option>Eyelet Copper</option>
+    <option>IP</option>
+    <option>Thinner</option>
+    <option>Blanket Refresh</option>
+  </select>
+
+  <select onchange="setItemName(this)">
+    <option value="">Packing</option>
+    <option>Scoring Blade Holder</option>
+    <option>Scoring Blade</option>
+    <option>1 Inch Tape</option>
+    <option>3 Inch Tape</option>
+    <option>10" x 14" Size PP Cover</option>
+    <option>16" x 22"  Size PP Cover</option>
+    <option>Bond Glue</option>
+    <option>Binding Glue</option>
+    <option>Stapler Pin</option>
+    <option>Wrapping Sheet</option>
+    <option>Wedding Card Box</option>
+    <option>Business Card Box</option>
+    <option>Business Card Wrapping</option>
+    <option>Thanks Card</option>
+  </select>
+</div>
+
+<!-- ENTRY -->
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;">
+  <input type="text" id="itemName" placeholder="Item Name" readonly>
+  <input type="number" id="available" placeholder="Available">
+  <input type="number" id="required" placeholder="Required">
+</div>
+
+<button class="save-btn" onclick="saveStock()">Place Order</button>
+
+<hr style="margin:30px 0">
+<div id="list"></div>
+</div>
+</div>
+<script>
+  
+
+// load data from localStorage when page opens
+let data = JSON.parse(localStorage.getItem("stockData")) || [];
+
+// render existing data immediately
+render();
+
+/* dropdown → item name */
+function setItemName(dd) {
+  if (dd.value === "") return;
+
+  const groupName = dd.options[0].text;
+  const selectedText = dd.options[dd.selectedIndex].text;
+  const cleanText = selectedText.replace(groupName + " :", "").trim();
+
+  // Always replace item name with new selected item
+  itemName.value = groupName + " : " + cleanText;
+
+  // Reset all other dropdowns
+  document.querySelectorAll("select").forEach(s => {
+    if (s !== dd) s.selectedIndex = 0;
+  });
+}
+function saveStock(){
+  const name = itemName.value.trim();
+  const avl  = available.value;
+  const req  = required.value;
+
+  if(name === ""){
+    alert("Item selection is required");
+    return;
+  }
+
+  if(avl === "" || req === ""){
+    alert("Kindly fill Available & Required quantity");
+    return;
+  }
+
+  let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+  data.unshift({
+    name,
+    avl: parseInt(avl),
+    req: parseInt(req),
+    follow: false,
+    done: false,
+    addedBy: user.user   // ⭐ username save here
+  });
+
+  updateStorage();
+  render();
+
+  itemName.value = "";
+  available.value = "";
+  required.value = "";
+  document.querySelectorAll("select").forEach(s => s.selectedIndex = 0);
+}
+
+function updateStorage(){
+  localStorage.setItem("stockData", JSON.stringify(data));
+
+  // 🔥 Calculate LOW stock count
+  let lowCount = data.filter(item => item.avl < item.req).length;
+
+  // 🔥 Save low count for home page
+  localStorage.setItem("lowStockCount", lowCount);
+}
+
+
+function render(){
+  list.innerHTML = "";
+
+  data.forEach((d, i) => {
+    let statusText = d.avl < d.req ? "Low" : "Ok";
+    let cls = d.avl < d.req ? "low" : "ok";
+
+    if(d.follow){
+      statusText = "✔ Followed";
+      cls = "ok";
+    }
+
+    if(d.done){
+      statusText = "👍 Done";
+      cls = "done";
+    }
+
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+      <div>
+    <b>${d.name}</b><br>
+    <div class="qty-line">Available : ${d.avl} | Required : ${d.req}</div>
+
+    ${ d.follow ? `<br><span class="followedUnder"><b>Followed By:</b> ${d.followedBy}</span>` : "" }
+
+    <br><small style="font-size:13px;color:#444;">
+      <b>Added By:</b> ${d.addedBy || "—"}
+    </small>
+  </div>
+
+  <div class="status ${cls}">${statusText}</div>
+
+  <div class="buttons">
+    <button class="delete" onclick="removeItem(${i})">Delete</button>
+    ${ d.follow ? "" : `<button class="follow" onclick="followItem(${i})">Follow</button>` }
+    <button class="donebtn" onclick="doneItem(${i})">Done</button>
+  </div>
+`;
+    list.appendChild(div);
+  });
+}
+
+function removeItem(i){
+  if(confirm("Delete this stock item?")){
+    data.splice(i, 1);
+    updateStorage();
+    render();
+  }
+}
+
+
+function followItem(i){
+  let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+  data[i].follow = true;
+  data[i].followedBy = user.user || user.name;
+
+  updateStorage();
+  render();
+}
+
+function doneItem(i){
+  data[i].done = true;
+  updateStorage();
+  render();
+}
+
+// save data permanently
+function updateStorage(){
+  localStorage.setItem("stockData", JSON.stringify(data));
+}
+
+function logout(){
+  
+  sessionStorage.clear(); 
+  window.location.href = "login.html";
+}
+
+let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+if (user) {
+    if (user.role !== "Founder") {
+      
+        document.querySelector("a[href='employees.html']").style.display = "none";
+    }
+}
+
+</script>
+
+</body>
+</html>
