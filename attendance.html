@@ -1,1 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Attendance</title>
 
+<style>
+body {
+    margin: 0;
+    font-family: tahoma, sans-serif;
+    background: url('bg.png');
+    background-size: cover;
+    background-position: center;
+}
+.container {
+    width: 900px;
+    background: #ffffff;
+    padding: 40px;
+    margin-top: 120px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.08);
+}
+
+.main-wrapper {
+    margin-left: 230px;
+    display: flex;
+    justify-content: center;
+}
+
+h2 {
+    display: inline-block;
+    background: linear-gradient(to right,  #07AFC0, #1aa853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.inputGroup {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup label {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.selectBox, input {
+    border: none;
+    background: transparent;
+    border-bottom: 3px solid #9de79d;
+    padding: 10px 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.btnRow {
+    display: flex;
+    gap: 15px;
+    margin-top: -15px;
+}
+
+.btnRow button {
+    padding: 10px 25px;
+    background: linear-gradient(to right, #07AFC0, #1aa853);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btnRow button:hover { 
+    background: linear-gradient(to right, #1aa853, #07AFC0);
+}
+
+.attCard {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    border-left: 6px solid #34c759;
+}
+
+.twoCol {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.left, .right {
+    width: 48%;
+}
+
+.delBtn {
+    padding: 7px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    background: #ff4d4d;
+    cursor: pointer;
+}
+
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(#34caca, #1aa853);
+    padding-top: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.sidebar button {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    background: white;
+    color: #26bfa3;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #fff;
+  background-image: url(bgdot.jpeg);
+justify-content: space-between;
+}
+
+.wave1 {
+  bottom: 15%;
+  animation: moveWave 50s linear infinite;
+}
+
+
+.wave-container {
+    position: fixed;
+    top: 0;
+    left: 230px;              
+    width: calc(100% - 230px);
+    height: 100vh;
+    z-index: -1;             
+    overflow: hidden;
+}
+ 
+@keyframes moveWave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+#flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#flash.active {
+  opacity: 0.9;
+}
+
+.ptimg{
+    margin-left: 30px;
+    width: 70%;
+    
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    
+}
+.sidebar img {
+        width: 150px;
+        height: auto;
+        padding: 12px 20px;
+        margin-left: 5px;
+        align-items: center;
+        
+}
+</style></head>
+<body>
+     <div class="wave-container">
+    <img src="wave.png" class="wave wave1"><div id="flash"></div>
+  </div>
+    <div class="sidebar">
+            <div class="ptimg"><img src="PTlogo.png" alt=""></div>
+            <br> 
+
+    <a href="home.html">Home</a>
+    <a href="employees.html">Employees</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="stock.html">Stock</a>
+    <a href="cust.html">Customers</a>
+    <a href="accounts.html">Accounts</a>
+    <a href="expenses.html">Expenses</a>
+
+    <br><br><br><br>
+
+    <button onclick="logout()">Logout</button>
+</div>
+    
+<!-- CONTENT -->
+ <div class="main-wrapper">
+<div class="container" id="att">
+
+    <h2>Attendance</h2>
+
+    <div class="row">
+        <div class="inputGroup">
+            <label>Employee Name</label>
+            <select id="empSelect" class="selectBox">
+                <option value="">Select Employee</option>
+            </select>
+        </div>
+
+        <div class="inputGroup">
+            <label>Date</label>
+            <input type="date" id="attDate">
+        </div>
+
+        <div class="inputGroup"></div>
+    </div>
+
+    <div class="btnRow">
+        <button id="inBtn">IN</button>
+        <button id="outBtn">OUT</button>
+    </div>
+
+    <div id="attendanceList"></div>
+
+</div>
+</div>
+<script>
+
+function formatTime12() {
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes().toString().padStart(2, "0");
+    let ampm = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    return `${hours}:${minutes} ${ampm}`;
+}
+function formatDateDDMMYY(dateStr) {
+    let parts = dateStr.split("-");   
+    return `${parts[2]}/${parts[1]}/${parts[0]}`; 
+}
+
+let employees = JSON.parse(localStorage.getItem("employees")) || [];
+let attendance = JSON.parse(localStorage.getItem("attendance")) || [];
+
+function loadEmployees() {
+    empSelect.innerHTML = '<option value="">Select Employee</option>';
+    employees.forEach(emp => {
+        let opt = document.createElement("option");
+        opt.value = emp.name;
+        opt.textContent = emp.name;
+        empSelect.appendChild(opt);
+    });
+}
+loadEmployees();
+
+inBtn.addEventListener("click", () => {
+    if (!empSelect.value || !attDate.value) {
+        alert("Select employee & date");
+        return;
+    }
+
+    let now = new Date();
+    let inTime = formatTime12();
+
+
+    let record = {
+        name: empSelect.value,
+        date: formatDateDDMMYY(attDate.value),
+
+        inTime: inTime,
+        outTime: "-",
+        status: "Present"
+    };
+
+    attendance.unshift(record);
+    save();
+});
+
+outBtn.addEventListener("click", () => {
+    let name = empSelect.value;
+    let date = attDate.value;
+
+    let index = attendance.findIndex(a => 
+    a.name === name && a.date === formatDateDDMMYY(date)
+);
+
+
+    if (index === -1) {
+        alert("First press IN");
+        return;
+    }
+
+    let now = new Date();
+    let outTime = formatTime12();
+
+    attendance[index].outTime = outTime;
+attendance[index].status = "OUT";  
+save();
+
+});
+
+function displayAttendance() {
+    attendanceList.innerHTML = "";
+
+    attendance.forEach((a, i) => {
+        let card = document.createElement("div");
+        card.className = "attCard";
+
+        card.innerHTML = `
+            <div class="twoCol">
+                <div class="left">
+                    <p><b>Name:</b> ${a.name}</p>
+                    <p><b>Date:</b> ${a.date}</p>
+                </div>
+                <div class="right">
+                    <p><b>IN Time:</b> ${a.inTime}</p>
+                    <p><b>OUT Time:</b> ${a.outTime}</p>
+                </div>
+            </div>
+            <p><b>Status:</b> ${a.status}</p>
+            <button class="delBtn" onclick="deleteAtt(${i})">Delete</button>
+        `;
+
+        attendanceList.appendChild(card);
+    });
+}
+
+function deleteAtt(i) {
+    attendance.splice(i, 1);
+    save();
+}
+
+function save() {
+    localStorage.setItem("attendance", JSON.stringify(attendance));
+    displayAttendance();
+}
+function logout() {
+
+
+  sessionStorage.clear();
+
+  window.location.href = "login.html";
+}
+displayAttendance();
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+    
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    
+    if (user.role !== "Founder" ) {
+
+        let hidePages = [
+          
+            "employees.html"   
+        ];
+
+        hidePages.forEach(page => {
+            let link = document.querySelector(`a[href='${page}']`);
+            if (link) link.style.display = "none";
+        });
+    }
+
+});
+
+function clearAllInputs() {
+    document.querySelectorAll("input, textarea, select").forEach(el => {
+        if (el.type !== "button" && el.type !== "submit") {
+            el.value = "";
+        }
+    });
+}
+document.getElementById("inBtn").addEventListener("click", () => {
+
+    
+
+    clearAllInputs(); 
+});
+document.getElementById("outBtn").addEventListener("click", () => {
+
+
+    clearAllInputs(); 
+});
+</script>
+
+</body>
+</html>
