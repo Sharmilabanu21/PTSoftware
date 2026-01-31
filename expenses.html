@@ -1,1 +1,472 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Expenses</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Tahoma, sans-serif;
+        background: #ffffff;
+        padding: 0;
+    }
+
+    h1 {
+        margin-left: 5%;
+        color: #67B200;
+    }
+
+    /* FORM DESIGN */
+    .form-box {
+        background: #fff;
+        width: 100%;
+        margin-left: 10px;
+        padding: 25px;
+        border-radius: 12px;
+        
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+    }
+
+    .form-row input {
+        flex: 1;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+
+    button {
+        padding: 12px 20px;
+        margin-top: 8px;
+        background: linear-gradient(to right, #07AFC0, #1aa853);
+        color: white;
+        border: none;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+
+    .container button:hover {
+        background: linear-gradient(to right,#1aa853, #07AFC0);
+    }
+
+   .page-wrap {
+    margin-left: 230px;              /* sidebar width */
+    width: calc(100% - 230px);       /* remaining space */
+    display: flex;
+    justify-content: center;         /* center horizontally */
+    padding: 40px 0;                 /* top-bottom spacing */
+}
+
+.container {
+    width: 900px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.08);
+}
+
+
+
+.container h2 {
+    display: inline-block;
+    background: linear-gradient(to right, #07AFC0, #1aa853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    
+}
+
+    /* TABLE */
+    table {
+        width: 90%;
+        margin: auto;
+        background: white;
+        border-collapse: collapse;
+       
+    }
+
+    th {
+        background: #f4f4f4;
+        padding: 14px;
+        color: #000000;
+        text-align: left;
+    }
+
+    td {
+        padding: 14px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-edit {
+        padding: 6px 12px;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-del {
+        padding: 6px 12px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .sidebar {
+    width: 230px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: linear-gradient(#34caca, #1aa853);
+    padding-top: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+/* Menu buttons */
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.sidebar a:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Logout button */
+.sidebar button {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    background: white;
+    color: #26bfa3;
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #fff;
+  background-image: url(bgdot.jpeg);
+justify-content: space-between;
+}
+
+/* PAGE CONTAINER */
+ .page {
+  /* 🔴 VERY IMPORTANT */
+   width: 100%;
+  height: 100vh;
+  overflow:hidden;
+}
+
+
+
+.wave1 {
+  bottom: 15%;
+  animation: moveWave 50s linear infinite;
+}
+
+.wave-container {
+    position: fixed;
+    top: 0;
+    left: 230px;              
+    width: calc(100% - 230px);
+    height: 100vh;
+    z-index: -1;             
+    overflow: hidden;
+}
+
+ 
+@keyframes moveWave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+#lash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+#flash.active {
+  opacity: 0.9;
+}
+.ptimg{
+    margin-left: 30px;
+    width: 70%;
+    
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    
+}
+.sidebar img {
+        width: 150px;
+        height: auto;
+        padding: 12px 20px;
+        margin-left: 5px;
+        align-items: center;
+        
+}
+</style></head>
+<body>
+    <div class="wave-container">
+    <img src="wave.png" class="wave wave1">
+  </div>
+  <div id="flash"></div>
+
+    <div class="sidebar">
+            <div class="ptimg"><img src="PTlogo.png" alt=""></div>
+            <br> 
+
+    <a href="home.html">Home</a>
+    <a href="employees.html">Employees</a>
+    <a href="attendance.html">Attendance</a>
+    <a href="stock.html">Stock</a>
+    <a href="cust.html">Customers</a>
+    <a href="accounts.html">Accounts</a>
+    <a href="expenses.html">Expenses</a>
+
+    <br><br><br><br>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<div class="page-wrap">
+<div class="container">
+<h2>Shop Expenses</h2>
+
+<!-- =========================
+        FORM INPUT
+========================= -->
+<div class="form-box">
+
+    <div class="form-row">
+        <input type="text" id="shopname" placeholder="Shop Name">
+        <input type="text" id="itemname" placeholder="Item Name">
+    </div>
+
+    <div class="form-row">
+        <input type="number" id="amount" placeholder="Amount (Rs.)">
+        <input type="date" id="date">
+    </div>
+
+    <button onclick="saveExpense()">Save</button>
+</div>
+
+
+
+<!-- =========================
+        TABLE DISPLAY
+========================= -->
+<table>
+    <thead>
+        <tr>
+            <th>Shop Name</th>
+        <th>Item Name</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Added By</th>   <!-- 🔥 -->
+        <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody id="expTable"></tbody>
+</table>
+</div>
+
+</div>
+<script>
+  
+
+    let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    let editIndex = -1;
+
+    loadTable();
+
+ function saveExpense() {
+
+    let s = shopname.value.trim();
+    let i = itemname.value.trim();
+    let a = amount.value.trim();
+    let d = date.value;
+
+    if (!s || !i || !a || !d) {
+        alert("Fill all details!");
+        return;
+    }
+
+    // 🔥 ALWAYS SAVE USERNAME ONLY
+    let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+    let addedBy = user ? user.user : "Unknown";
+
+    // Convert date
+    let dt = new Date(d);
+    let finalDate =
+        dt.getDate().toString().padStart(2,'0') + "/" +
+        (dt.getMonth()+1).toString().padStart(2,'0') + "/" +
+        dt.getFullYear();
+
+    let data = { 
+        shop: s, 
+        item: i, 
+        amount: a, 
+        date: finalDate,
+        addedBy: addedBy     // ⭐ username store
+    };
+
+    if (editIndex === -1) {
+        expenses.unshift(data);
+    } else {
+        expenses[editIndex] = data;
+        editIndex = -1;
+    }
+
+    save();
+    clearForm();
+}
+
+
+    function loadTable() {
+        expTable.innerHTML = "";
+
+        expenses.forEach((e, i) => {
+            expTable.innerHTML += `
+                <tr>
+        <td>${e.shop}</td>
+        <td>${e.item}</td>
+        <td>Rs. ${e.amount}</td>
+        <td>${e.date}</td>
+        <td><b>${e.addedBy || "Not set"}</b></td>   <!-- 🔥 Username show -->
+        <td>
+            <div class="actions">
+                <button class="btn-edit" onclick="editExp(${i})">Edit</button>
+                <button class="btn-del" onclick="deleteExp(${i})">Delete</button>
+            </div>
+        </td>
+    </tr>
+            `;
+        });
+    }
+
+    function editExp(i) {
+        let d = expenses[i];
+
+        shopname.value = d.shop;
+        itemname.value = d.item;
+        amount.value = d.amount;
+
+        // reverse date to YYYY-MM-DD for input
+        let parts = d.date.split("/");
+        date.value = parts[2] + "-" + parts[1] + "-" + parts[0];
+
+        editIndex = i;
+    }
+
+    function deleteExp(i) {
+    if (confirm("Are you sure you want to delete this expense?")) {
+        expenses.splice(i, 1);
+        save();
+    }
+}
+
+    function clearForm() {
+        shopname.value = "";
+        itemname.value = "";
+        amount.value = "";
+        date.value = "";
+    }
+
+    function save() {
+        localStorage.setItem("expenses", JSON.stringify(expenses));
+        loadTable();
+    }
+
+
+    
+document.addEventListener("DOMContentLoaded", () => {
+
+    
+    let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+
+
+
+    // User not logged → redirect
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    
+    if (user.role !== "Founder") {
+
+        let hidePages = [
+         
+            "employees.html"   
+        ];
+
+        hidePages.forEach(page => {
+            let link = document.querySelector(`a[href='${page}']`);
+            if (link) link.style.display = "none";
+        });
+    }
+
+});
+function logout() {
+
+  
+  sessionStorage.clear();
+
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
